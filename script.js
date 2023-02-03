@@ -179,6 +179,7 @@ document.addEventListener('keyup', function(e) {
   if (e.which === 83 || e.which === 87) {
     leftPaddle.dy = 0;
   }
+  
 });
 
 // start the game

@@ -1,4 +1,5 @@
 const canvas = document.getElementById('game');
+const playAgain = document.getElementById('gameOver');
 const context = canvas.getContext('2d');
 const grid = 15;
 const paddleHeight = grid * 5; // 80
@@ -97,9 +98,11 @@ function loop() {
     ball.dy *= -1;
   }
   
+  // left score
   context.font = "30px solid";
   context.fillText(leftScore, 180, 100);
   
+  // right score
   context.font = "30px solid";
   context.fillText(rightScore, 600, 100);
   
@@ -107,6 +110,7 @@ function loop() {
   if ( (ball.x < 0 || ball.x > canvas.width) && !ball.resetting) {
     ball.resetting = true;
 
+    // add to score if point is scored
     if(ball.x < 0) rightScore += 1;
     if(ball.x > canvas.width) leftScore += 1;
 
@@ -146,20 +150,36 @@ function loop() {
   for (let i = grid; i < canvas.height - grid; i += grid * 2) {
     context.fillRect(canvas.width / 2 - grid / 2, i, grid, grid);
   }
+  
+  // does paddle track ball?
+  let num = Math.floor(Math.random() * 6);
+  if(num === 0){
+    rightPaddle.dy = 0;
+  } else {
+    rightPaddle.dy = ball.dy;
+  }
+
+  // game over, first one to seven
+  if(rightScore >= 7 || leftScore >= 7){
+    canvas.hidden = true;
+    playAgain.hidden = false;
+  }
+  
+}
+
+// start game again function
+function startAgain(){
+  canvas.hidden = false;
+  playAgain.hidden = true;
+  leftScore = 0;
+  rightScore = 0;
+  ball.dx = 2;
+  ball.dy = 2;
+  requestAnimationFrame(loop);
 }
 
 // listen to keyboard events to move the paddles
 document.addEventListener('keydown', function(e) {
-
-  // up arrow key
-  if (e.which === 38) {
-    rightPaddle.dy = -paddleSpeed;
-  }
-  // down arrow key
-  else if (e.which === 40) {
-    rightPaddle.dy = paddleSpeed;
-  }
-
   // w key
   if (e.which === 87) {
     leftPaddle.dy = -paddleSpeed;
@@ -172,10 +192,6 @@ document.addEventListener('keydown', function(e) {
 
 // listen to keyboard events to stop the paddle if key is released
 document.addEventListener('keyup', function(e) {
-  if (e.which === 38 || e.which === 40) {
-    rightPaddle.dy = 0;
-  }
-
   if (e.which === 83 || e.which === 87) {
     leftPaddle.dy = 0;
   }

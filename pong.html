@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <head>
         <title>Basic Pong HTML Game</title>
         <meta charset="UTF-8">
@@ -7,6 +8,14 @@
     </head>
     <body>
         <canvas width="750" height="585" id="game"></canvas>
+        <div class="w3-white w3-center w3-round w3-container" id="gameOver" style="color: white;" hidden>
+            <p class="w3-xlarge">
+            GAME OVER!
+            </p>
+            <p>
+            <button class="w3-border w3-round" id="button" onclick="startAgain();">Play Again</button>
+            </p>
+        </div>
         <script src="script.js"></script>
     </body>
 </html>

@@ -4,6 +4,7 @@ const context = canvas.getContext('2d');
 const grid = 15;
 const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
+const trashTalkMessage = document.getElementById('trashTalkMessage');
 
 var paddleSpeed = 6;
 var ballSpeed = 5;
@@ -111,8 +112,17 @@ function loop() {
     ball.resetting = true;
 
     // add to score if point is scored
-    if(ball.x < 0) rightScore += 1;
-    if(ball.x > canvas.width) leftScore += 1;
+    if(ball.x < 0) {
+      rightScore += 1;
+      trashTalk();
+      trashTalkMessage.hidden = false;
+    }
+
+    if(ball.x > canvas.width) {
+      leftScore += 1;
+      positiveTrashTalk();
+      trashTalkMessage.hidden = false;
+    }
 
     // give some time for the player to recover before launching the ball again
     setTimeout(() => {
@@ -163,6 +173,7 @@ function loop() {
   if(rightScore >= 7 || leftScore >= 7){
     canvas.hidden = true;
     playAgain.hidden = false;
+    trashTalkMessage.hidden = true;
   }
   
 }
@@ -170,7 +181,7 @@ function loop() {
 // start game again function
 function startAgain(){
   canvas.hidden = false;
-  playAgain.hidden = true;
+  playAgain.hidden = true;  
   leftScore = 0;
   rightScore = 0;
   ball.dx = 2;
@@ -199,3 +210,77 @@ document.addEventListener('keyup', function(e) {
 
 // start the game
 requestAnimationFrame(loop);
+
+function trashTalk() {
+  var message;
+  switch (Math.floor(Math.random() * 10)) {
+      case 0:
+          message = "I remember the first time I played pong";
+          break;
+      case 1:
+          message = "Does your paddle have a hole in it?";
+          break;
+      case 2:
+          message = "Let me know when you start trying";
+          break;
+      case 3:
+          message = "Your mom is cheering for me";
+          break;
+      case 4:
+          message = "Maybe you should reevaluate your life";
+          break;
+      case 5:
+          message = "You can do better than that";
+          break;
+      case 6:
+          message = "You better pick it up";
+          break;
+      case 7:
+          message = "Don't let Dr. Matta down";
+          break;
+      case 8:
+          message = "I've seen better swings in a backyard";
+          break;
+      case 9:
+          message = "Can you even see the ball?";
+          break;
+  }
+  trashTalkMessage.innerText = message;
+}
+
+function positiveTrashTalk() {
+  var message;
+  switch (Math.floor(Math.random() * 10)) {
+      case 0:
+          message = "Nice swing";
+          break;
+      case 1:
+          message = "This game will be over in no time";
+          break;
+      case 2:
+          message = "Keep it up";
+          break;
+      case 3:
+          message = "You're a professional";
+          break;
+      case 4:
+          message = "Good work";
+          break;
+      case 5:
+          message = "Great point";
+          break;
+      case 6:
+          message = "Comin' in hot!";
+          break;
+      case 7:
+          message = "Dr. Matta would be proud";
+          break;
+      case 8:
+          message = "Serena Williams in the house";
+          break;
+      case 9:
+          message = "You got this";
+          break;
+  }
+  trashTalkMessage.innerText = message;
+}

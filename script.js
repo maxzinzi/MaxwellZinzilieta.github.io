@@ -5,6 +5,7 @@ const grid = 15;
 const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
 const trashTalkMessage = document.getElementById('trashTalkMessage');
+const face = document.getElementById('matta');
 
 var paddleSpeed = 6;
 var ballSpeed = 5;
@@ -149,7 +150,9 @@ function loop() {
   }
 
   // draw ball
-  context.fillRect(ball.x, ball.y, ball.width, ball.height);
+  //context.fillRect(ball.x, ball.y, ball.width, ball.height);
+  context.drawImage(face, ball.x, ball.y, ball.width + 50, ball.height + 50);
+
 
   // draw walls
   context.fillStyle = 'lightgrey';

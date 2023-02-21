@@ -16,6 +16,20 @@
             <p>
             <button class="w3-border w3-round" id="button" onclick="startAgain();">Play Again</button>
             </p>
+            <div class="w3-white w3-center w3-round w3-container" id="quitGame" style="color: white;" hidden>
+                <p>
+                <button class="w3-border w3-round" id="quitButton" onclick="quitGame();">Quit</button>
+                </p>
+            </div>
+        </div>
+        <div id="rickRoll" class="w3-white w3-center w3-round w3-container" hidden>
+            <p class="w3-xlarge">
+                You just got Rick Rolled!
+            </p>
+        <video width="520" height="440" id="video" controls autoplay>
+            <source src="rickroll.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         </div>
         <i><div id="trashTalkMessage"></div></i>
         <script src="script.js"></script>

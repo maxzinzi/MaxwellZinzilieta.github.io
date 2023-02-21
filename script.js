@@ -1,5 +1,7 @@
 const canvas = document.getElementById('game');
 const playAgain = document.getElementById('gameOver');
+const rickRoll = document.getElementById('rickRoll');
+const quitB = document.getElementById('quitGame');
 const context = canvas.getContext('2d');
 const grid = 15;
 const paddleHeight = grid * 5; // 80
@@ -174,22 +176,32 @@ function loop() {
 
   // game over, first one to seven
   if(rightScore >= 7 || leftScore >= 7){
-    canvas.hidden = true;
-    playAgain.hidden = false;
+    canvas.style.display = "none";
+    playAgain.style.display = "block";
     trashTalkMessage.hidden = true;
+    quitB.style.display = "block";
   }
   
 }
 
 // start game again function
 function startAgain(){
-  canvas.hidden = false;
-  playAgain.hidden = true;  
+  canvas.style.display = "initial";
+  playAgain.style.display = "none";
+  rickRoll.style.display = "none";
+  document.querySelector("#video").pause();
   leftScore = 0;
   rightScore = 0;
   ball.dx = 2;
   ball.dy = 2;
   requestAnimationFrame(loop);
+}
+
+function quitGame(){
+  canvas.style.display = "none";
+  rickRoll.style.display = "block"; 
+  document.querySelector("#video").play();
+  cancelAnimationFrame(loop);
 }
 
 // listen to keyboard events to move the paddles

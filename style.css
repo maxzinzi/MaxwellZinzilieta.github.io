@@ -7,6 +7,13 @@ html, body {
 body {
     background: black;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#trashTalkMessage {
+    color: white;
+    font-size: 20px;
+    padding: 20px;
 }
